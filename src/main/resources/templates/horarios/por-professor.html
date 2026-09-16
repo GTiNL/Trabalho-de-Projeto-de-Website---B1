@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head('Horários por Professor')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1>Horários por Professor</h1>
+    <p class="subtitle">Selecione um professor para visualizar suas disciplinas, turmas e horários.</p>
+
+    <div class="card">
+        <form method="get" th:action="@{/horarios/por-professor}">
+            <div class="field">
+                <label for="professorId">Professor</label>
+                <select id="professorId" name="professorId" onchange="this.form.submit()">
+                    <option value="">Selecione...</option>
+                    <option th:each="p : ${professores}" th:value="${p.id}" th:text="${p.nome}"
+                            th:selected="${p.id == professorId}"></option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="card" th:if="${professorId != null and professorSelecionado == null}">
+        <p class="empty">Professor não encontrado.</p>
+    </div>
+
+    <div class="card" th:if="${professorSelecionado != null}">
+        <h2 th:text="${professorSelecionado.nome}"></h2>
+        <p>
+            <span class="badge" th:text="${professorSelecionado.email}"></span>
+        </p>
+
+        <table th:if="${not #lists.isEmpty(horarios)}">
+            <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Turma</th>
+                <th>Dia</th>
+                <th>Início</th>
+                <th>Fim</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="h : ${horarios}">
+                <td th:text="${h.disciplinaNome}"></td>
+                <td th:text="${h.turmaNome}"></td>
+                <td th:text="${h.diaSemana.descricao}"></td>
+                <td th:text="${h.horaInicio}"></td>
+                <td th:text="${h.horaFim}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="empty" th:if="${#lists.isEmpty(horarios)}">Nenhum horário cadastrado para este professor.</p>
+    </div>
+</div>
+</body>
+</html>

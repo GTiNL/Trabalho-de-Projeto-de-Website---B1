@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head('Início')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1>Organização de Horários</h1>
+    <p class="subtitle">Cadastre professores, disciplinas, turmas e horários, e consulte a grade por professor ou por turma.</p>
+
+    <div class="home-grid">
+        <a class="home-card" th:href="@{/professores}">
+            <h3>Professores</h3>
+            <p>Cadastrar e gerenciar professores.</p>
+        </a>
+        <a class="home-card" th:href="@{/disciplinas}">
+            <h3>Disciplinas</h3>
+            <p>Cadastrar e gerenciar disciplinas.</p>
+        </a>
+        <a class="home-card" th:href="@{/turmas}">
+            <h3>Turmas</h3>
+            <p>Cadastrar e gerenciar turmas.</p>
+        </a>
+        <a class="home-card" th:href="@{/horarios}">
+            <h3>Horários</h3>
+            <p>Cadastrar e gerenciar horários de aula.</p>
+        </a>
+        <a class="home-card" th:href="@{/horarios/por-professor}">
+            <h3>Grade por Professor</h3>
+            <p>Selecione um professor e veja suas disciplinas, turmas e horários.</p>
+        </a>
+        <a class="home-card" th:href="@{/horarios/por-turma}">
+            <h3>Grade por Turma</h3>
+            <p>Selecione uma turma e veja professores, disciplinas e horários.</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

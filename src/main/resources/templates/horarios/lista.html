@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head('Horários')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1>Horários</h1>
+    <p class="subtitle">Cadastro e gerenciamento de horários de aula.</p>
+
+    <div class="actions">
+        <a class="btn" th:href="@{/horarios/novo}">+ Novo Horário</a>
+    </div>
+
+    <div class="card">
+        <table th:if="${not #lists.isEmpty(horarios)}">
+            <thead>
+            <tr>
+                <th>Professor</th>
+                <th>Disciplina</th>
+                <th>Turma</th>
+                <th>Dia</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="h : ${horarios}">
+                <td th:text="${h.professorNome}"></td>
+                <td th:text="${h.disciplinaNome}"></td>
+                <td th:text="${h.turmaNome}"></td>
+                <td th:text="${h.diaSemana.descricao}"></td>
+                <td th:text="${h.horaInicio}"></td>
+                <td th:text="${h.horaFim}"></td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/horarios/{id}/editar(id=${h.id})}">Editar</a>
+                    <form th:action="@{/horarios/{id}/excluir(id=${h.id})}" method="post" style="display:inline"
+                          onsubmit="return confirm('Excluir este horário?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="empty" th:if="${#lists.isEmpty(horarios)}">Nenhum horário cadastrado.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo} + ' - Horários Escolares'">Horários Escolares</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<header th:fragment="header" class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" th:href="@{/}">Horários Escolares</a>
+        <nav>
+            <a th:href="@{/professores}">Professores</a>
+            <a th:href="@{/disciplinas}">Disciplinas</a>
+            <a th:href="@{/turmas}">Turmas</a>
+            <a th:href="@{/horarios}">Horários</a>
+            <a th:href="@{/horarios/por-professor}">Ver por Professor</a>
+            <a th:href="@{/horarios/por-turma}">Ver por Turma</a>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head('Horários por Turma')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1>Horários por Turma</h1>
+    <p class="subtitle">Selecione uma turma para visualizar professores, disciplinas e horários.</p>
+
+    <div class="card">
+        <form method="get" th:action="@{/horarios/por-turma}">
+            <div class="field">
+                <label for="turmaId">Turma</label>
+                <select id="turmaId" name="turmaId" onchange="this.form.submit()">
+                    <option value="">Selecione...</option>
+                    <option th:each="t : ${turmas}" th:value="${t.id}" th:text="${t.nome} + ' - ' + ${t.anoLetivo}"
+                            th:selected="${t.id == turmaId}"></option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="card" th:if="${turmaId != null and turmaSelecionada == null}">
+        <p class="empty">Turma não encontrada.</p>
+    </div>
+
+    <div class="card" th:if="${turmaSelecionada != null}">
+        <h2 th:text="${turmaSelecionada.nome} + ' (' + ${turmaSelecionada.anoLetivo} + ')'"></h2>
+
+        <table th:if="${not #lists.isEmpty(horarios)}">
+            <thead>
+            <tr>
+                <th>Professor</th>
+                <th>Disciplina</th>
+                <th>Dia</th>
+                <th>Início</th>
+                <th>Fim</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="h : ${horarios}">
+                <td th:text="${h.professorNome}"></td>
+                <td th:text="${h.disciplinaNome}"></td>
+                <td th:text="${h.diaSemana.descricao}"></td>
+                <td th:text="${h.horaInicio}"></td>
+                <td th:text="${h.horaFim}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="empty" th:if="${#lists.isEmpty(horarios)}">Nenhum horário cadastrado para esta turma.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head('Turmas')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1>Turmas</h1>
+    <p class="subtitle">Cadastro e gerenciamento de turmas.</p>
+
+    <div class="actions">
+        <a class="btn" th:href="@{/turmas/novo}">+ Nova Turma</a>
+    </div>
+
+    <div class="card">
+        <table th:if="${not #lists.isEmpty(turmas)}">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ano Letivo</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="t : ${turmas}">
+                <td th:text="${t.nome}"></td>
+                <td th:text="${t.anoLetivo}"></td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/turmas/{id}/editar(id=${t.id})}">Editar</a>
+                    <form th:action="@{/turmas/{id}/excluir(id=${t.id})}" method="post" style="display:inline"
+                          onsubmit="return confirm('Excluir esta turma? Os horários associados a ela também serão removidos.');">
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="empty" th:if="${#lists.isEmpty(turmas)}">Nenhuma turma cadastrada.</p>
+    </div>
+</div>
+</body>
+</html>

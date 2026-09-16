@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head('Professores')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1>Professores</h1>
+    <p class="subtitle">Cadastro e gerenciamento de professores.</p>
+
+    <div class="actions">
+        <a class="btn" th:href="@{/professores/novo}">+ Novo Professor</a>
+    </div>
+
+    <div class="card">
+        <table th:if="${not #lists.isEmpty(professores)}">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${professores}">
+                <td th:text="${p.nome}"></td>
+                <td th:text="${p.email}"></td>
+                <td th:text="${p.telefone}"></td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/professores/{id}/editar(id=${p.id})}">Editar</a>
+                    <form th:action="@{/professores/{id}/excluir(id=${p.id})}" method="post" style="display:inline"
+                          onsubmit="return confirm('Excluir este professor? Os horários associados a ele também serão removidos.');">
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="empty" th:if="${#lists.isEmpty(professores)}">Nenhum professor cadastrado.</p>
+    </div>
+</div>
+</body>
+</html>

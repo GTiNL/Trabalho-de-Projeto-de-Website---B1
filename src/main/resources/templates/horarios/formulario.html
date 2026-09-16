@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/comum :: head(${horario.id} == null ? 'Novo Horário' : 'Editar Horário')}"></head>
+<body>
+<div th:replace="~{fragments/comum :: header}"></div>
+<div class="container">
+    <h1 th:text="${horario.id} == null ? 'Novo Horário' : 'Editar Horário'"></h1>
+
+    <div class="card">
+        <form th:action="@{/horarios/salvar}" th:object="${horario}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="field">
+                <label for="professorId">Professor</label>
+                <select id="professorId" th:field="*{professorId}">
+                    <option value="">Selecione...</option>
+                    <option th:each="p : ${professores}" th:value="${p.id}" th:text="${p.nome}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('professorId')}" th:errors="*{professorId}"></div>
+            </div>
+
+            <div class="field">
+                <label for="disciplinaId">Disciplina</label>
+                <select id="disciplinaId" th:field="*{disciplinaId}">
+                    <option value="">Selecione...</option>
+                    <option th:each="d : ${disciplinas}" th:value="${d.id}" th:text="${d.nome}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('disciplinaId')}" th:errors="*{disciplinaId}"></div>
+            </div>
+
+            <div class="field">
+                <label for="turmaId">Turma</label>
+                <select id="turmaId" th:field="*{turmaId}">
+                    <option value="">Selecione...</option>
+                    <option th:each="t : ${turmas}" th:value="${t.id}" th:text="${t.nome}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('turmaId')}" th:errors="*{turmaId}"></div>
+            </div>
+
+            <div class="field">
+                <label for="diaSemana">Dia da Semana</label>
+                <select id="diaSemana" th:field="*{diaSemana}">
+                    <option value="">Selecione...</option>
+                    <option th:each="dia : ${diasSemana}" th:value="${dia}" th:text="${dia.descricao}"></option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('diaSemana')}" th:errors="*{diaSemana}"></div>
+            </div>
+
+            <div class="field">
+                <label for="horaInicio">Início</label>
+                <input type="time" id="horaInicio" th:field="*{horaInicio}">
+                <div class="error" th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></div>
+            </div>
+
+            <div class="field">
+                <label for="horaFim">Fim</label>
+                <input type="time" id="horaFim" th:field="*{horaFim}">
+                <div class="error" th:if="${#fields.hasErrors('horaFim')}" th:errors="*{horaFim}"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Salvar</button>
+                <a class="btn btn-secondary" th:href="@{/horarios}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
