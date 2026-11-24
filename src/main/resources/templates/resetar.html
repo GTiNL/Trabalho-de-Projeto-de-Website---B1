@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Resetar senha</title></head>
+<body style="font-family:sans-serif;max-width:320px;margin:60px auto">
+<h2>Resetar senha</h2>
+<p style="color:red" th:if="${erro}" th:text="${erro}"></p>
+<p style="color:green" th:if="${msg}" th:text="${msg}"></p>
+<form method="post" action="/resetar">
+  <p>Email<br><input type="email" name="email" required></p>
+  <p>Nova senha<br><input type="password" name="senha" required></p>
+  <p>Confirmar senha<br><input type="password" name="confirma" required></p>
+  <button type="submit">Salvar nova senha</button>
+</form>
+<p><a href="/login">Voltar</a></p>
+</body>
+</html>

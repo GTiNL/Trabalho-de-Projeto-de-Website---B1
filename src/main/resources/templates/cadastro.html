@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Criar conta</title></head>
+<body style="font-family:sans-serif;max-width:320px;margin:60px auto">
+<h2>Criar conta</h2>
+<p style="color:red" th:if="${erro}" th:text="${erro}"></p>
+<p style="color:green" th:if="${msg}" th:text="${msg}"></p>
+<form method="post" action="/cadastro">
+  <p>Email<br><input type="email" name="email" required></p>
+  <p>Senha<br><input type="password" name="senha" required></p>
+  <p>Confirmar senha<br><input type="password" name="confirma" required></p>
+  <button type="submit">Cadastrar</button>
+</form>
+<p><a href="/login">Voltar</a></p>
+</body>
+</html>
